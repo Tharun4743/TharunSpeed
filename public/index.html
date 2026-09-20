@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TharunSpeed — Real-Time Network & Hardware Speed Tester by Tharunkumar K</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="TharunSpeed — Real-Time Network & Hardware Speed Tester by Tharunkumar K">
+    <meta name="description" content="TharunSpeed by Tharunkumar K (Tharun4743) — Fast, high-precision, unmanipulated real-time network speed tester with Wi-Fi 2.4GHz/5GHz band detection, USB tethering sensing, and 5G/4G carrier diagnostics.">
+    <meta name="keywords" content="TharunSpeed, Tharun Speed, Tharunkumar K, Tharun4743, speed test, fast speed test, wifi 5ghz speed test, usb tethering speed, 5g speed test, network telemetry, Tharunkumar K VSB">
+    <meta name="author" content="Tharunkumar K">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    
+    <!-- Canonical & Verification -->
+    <link rel="canonical" href="https://tharunspeed.netlify.app/">
+    <link rel="me" href="https://tharunkumark4743.netlify.app/">
+    <link rel="me" href="https://github.com/Tharun4743">
+    <link rel="me" href="https://www.linkedin.com/in/tharunkumark4743/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tharunspeed.netlify.app/">
+    <meta property="og:title" content="TharunSpeed — Real-Time Network & Hardware Speed Tester">
+    <meta property="og:description" content="Fast, unmanipulated real-time internet speed tester with Wi-Fi 2.4GHz/5GHz band detection and USB tethering sensing by Tharunkumar K.">
+    <meta property="og:site_name" content="TharunSpeed">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://tharunspeed.netlify.app/">
+    <meta name="twitter:title" content="TharunSpeed — Real-Time Network Speed Tester">
+    <meta name="twitter:description" content="Fast, unmanipulated real-time internet speed tester with Wi-Fi 2.4GHz/5GHz band detection by Tharunkumar K.">
+
+    <!-- JSON-LD Entity Structured Data Schema (Google Search Console & Knowledge Graph) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TharunSpeed",
+      "alternateName": ["Tharun Speed", "TharunSpeed Test", "Tharun4743 Speed"],
+      "url": "https://tharunspeed.netlify.app/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "description": "High-precision unmanipulated real-time network speed tester with Wi-Fi 2.4GHz/5GHz and Mobile Hotspot detection.",
+      "author": {
+        "@type": "Person",
+        "name": "Tharunkumar K",
+        "alternateName": ["Tharun", "Tharun K", "Tharun4743"],
+        "url": "https://tharunkumark4743.netlify.app/",
+        "sameAs": [
+          "https://github.com/Tharun4743",
+          "https://www.linkedin.com/in/tharunkumark4743/"
+        ]
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5v-3.5h3.5L11 6v4.5H7.5L13 16.5z'/></svg>">
+</head>
+<body>
+
+    <!-- Full-Width Header -->
+    <header class="top-nav">
+        <div class="logo">
+            <span class="logo-mark"></span>
+            <span class="logo-title">TharunSpeed</span>
+        </div>
+        <div class="connection-pill" id="headerConnectionPill">
+            <span id="badgeIcon">⚡</span>
+            <span id="badgeText">Detecting connection...</span>
+        </div>
+    </header>
+
+    <!-- Full-Screen Main Content -->
+    <main class="full-main">
+        
+        <!-- Live Connection Status Pills -->
+        <div class="connection-tags">
+            <div class="pill">
+                <span class="pill-label">Connection:</span>
+                <strong id="connectionTypeVal">Detecting...</strong>
+            </div>
+            <div class="pill">
+                <span class="pill-label">Network:</span>
+                <strong id="networkCarrierVal">Detecting...</strong>
+            </div>
+        </div>
+
+        <!-- Giant Full-Screen Hero Speed Display -->
+        <section class="hero-speed">
+            <div class="speed-value-row">
+                <span class="speed-number" id="heroSpeed">0.0</span>
+                <span class="speed-unit">Mbps</span>
+            </div>
+            <div class="speed-status" id="stageLabel">Your Internet Speed</div>
+            <button class="primary-btn" id="startBtn">Start Speed Test</button>
+        </section>
+
+        <!-- Full-Width Metrics Strip -->
+        <section class="metrics-strip">
+            <div class="metric-item">
+                <span class="m-label">Download</span>
+                <div class="m-val"><strong id="downloadValue">--</strong> <span class="m-unit">Mbps</span></div>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+                <span class="m-label">Upload</span>
+                <div class="m-val"><strong id="uploadValue">--</strong> <span class="m-unit">Mbps</span></div>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+                <span class="m-label">Latency (Ping)</span>
+                <div class="m-val"><strong id="pingValue">--</strong> <span class="m-unit">ms</span></div>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-item">
+                <span class="m-label">Jitter</span>
+                <div class="m-val"><strong id="jitterValue">--</strong> <span class="m-unit">ms</span></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Full-Width Footer with Developer Link -->
+    <footer class="bottom-footer">
+        <span>TharunSpeed &copy; 2026 &bull; Developed by <a href="https://tharunkumark4743.netlify.app/" target="_blank" rel="noopener noreferrer" style="color: inherit; font-weight: 600; text-decoration: underline;">Tharunkumar K</a></span> &bull;
+        <span id="gatewayInfo">Gateway: Detecting...</span>
+    </footer>
+
+    <!-- Hidden canvas hooks -->
+    <canvas id="gaugeCanvas" style="display:none;"></canvas>
+    <canvas id="liveChartCanvas" style="display:none;"></canvas>
+
+    <script src="gauge.js"></script>
+    <script src="speed-engine.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

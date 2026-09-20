@@ -1,0 +1,204 @@
+/**
+ * Clean & User-Friendly Speed Tester Controller
+ * 100% Dynamic Telemetry & Universal Telecom Sanitizer
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const engine = new SpeedEngine({
+        downloadDurationMs: 3000,
+        uploadDurationMs: 2000,
+        concurrency: 6,
+        targetNode: 'cloudflare'
+    });
+
+    // UI Elements
+    const startBtn = document.getElementById('startBtn');
+    const heroSpeed = document.getElementById('heroSpeed');
+    const stageLabel = document.getElementById('stageLabel');
+    const badgeText = document.getElementById('badgeText');
+    const badgeIcon = document.getElementById('badgeIcon');
+
+    // Status Pills
+    const connectionTypeVal = document.getElementById('connectionTypeVal');
+    const networkCarrierVal = document.getElementById('networkCarrierVal');
+
+    // Metrics
+    const downloadValue = document.getElementById('downloadValue');
+    const uploadValue = document.getElementById('uploadValue');
+    const pingValue = document.getElementById('pingValue');
+    const jitterValue = document.getElementById('jitterValue');
+
+    // Info
+    const ispInfo = document.getElementById('ispInfo');
+    const gatewayInfo = document.getElementById('gatewayInfo');
+
+    let detectedWifi = null;
+    let detectedIp = null;
+
+    // Pure Dynamic Telecom Name Formatter (Zero Hardcoded If-Else Brand Blocks)
+    function formatCarrierName(ipData) {
+        if (!ipData) return 'Detecting...';
+
+        let name = ipData.isp || ipData.org || '';
+
+        // If isp is very short or generic, combine with org
+        if (name.length < 4 && ipData.org) {
+            name = ipData.org;
+        }
+
+        // Clean out ASN identifiers and legal corporate noise dynamically
+        name = name
+            .replace(/AS\d+/gi, '')
+            .replace(/AS for (GPRS|Internet|Data) Service/gi, '')
+            .replace(/\b(Limited|Ltd|Inc|Corporation|Corp|Pvt|Private|Services|LLC|GPRS|Infocomm|Telecommunications|Telecom)\b\.?/gi, '')
+            .replace(/[-_.]+/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+        // Title Case capitalization for clean display
+        if (name.length > 0) {
+            name = name.split(' ')
+                .map(word => word.length > 0 ? (word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) : '')
+                .join(' ')
+                .trim();
+        }
+
+        return name.length > 1 ? name : (ipData.isp || ipData.org || 'Internet Service Provider');
+    }
+
+    // Update connection & carrier labels dynamically from live hardware & IP data
+    function updateConnectionLabels(testedSpeed = null, testedPing = null) {
+        if (!detectedWifi) return;
+
+        // 1. Connection Type (USB Cable / Wi-Fi / LAN)
+        if (detectedWifi.IsUsbTether) {
+            connectionTypeVal.textContent = '📱 USB Tethering (Phone)';
+            badgeIcon.textContent = '📱';
+            badgeText.textContent = 'USB Tethering';
+        } else if (detectedWifi.FrequencyBand && detectedWifi.FrequencyBand.includes('5 GHz')) {
+            connectionTypeVal.textContent = '📶 Wi-Fi 5 GHz (Fast)';
+            badgeIcon.textContent = '📶';
+            badgeText.textContent = 'Wi-Fi 5 GHz';
+        } else if (detectedWifi.FrequencyBand && detectedWifi.FrequencyBand.includes('2.4 GHz')) {
+            connectionTypeVal.textContent = '📶 Wi-Fi 2.4 GHz';
+            badgeIcon.textContent = '📶';
+            badgeText.textContent = 'Wi-Fi 2.4 GHz';
+        } else {
+            connectionTypeVal.textContent = detectedWifi.HotspotType || 'Connected';
+            badgeIcon.textContent = '⚡';
+            badgeText.textContent = 'Connected';
+        }
+
+        // 2. Real Network Carrier & 5G / 4G Classification
+        if (detectedIp) {
+            const cleanCarrier = formatCarrierName(detectedIp);
+            const isTetheredPhone = (detectedWifi.IsUsbTether === true || detectedWifi.IsMobileHotspot === true);
+            
+            if (isTetheredPhone) {
+                if (testedSpeed !== null) {
+                    if (testedSpeed >= 40 || (testedPing !== null && testedPing <= 45)) {
+                        networkCarrierVal.textContent = `${cleanCarrier} (5G Mobile)`;
+                        badgeText.textContent = `5G Mobile • ${cleanCarrier}`;
+                    } else {
+                        networkCarrierVal.textContent = `${cleanCarrier} (4G LTE)`;
+                        badgeText.textContent = `4G LTE • ${cleanCarrier}`;
+                    }
+                } else {
+                    networkCarrierVal.textContent = `${cleanCarrier} (Mobile Data - 5G / 4G)`;
+                    badgeText.textContent = `Mobile Data • ${cleanCarrier}`;
+                }
+            } else {
+                networkCarrierVal.textContent = `${cleanCarrier} (Broadband / Fiber)`;
+                badgeText.textContent = `Broadband • ${cleanCarrier}`;
+            }
+            
+            ispInfo.textContent = `Carrier: ${cleanCarrier} (${detectedIp.city || 'Live'})`;
+        }
+
+        gatewayInfo.textContent = detectedWifi.Gateway ? `Gateway: ${detectedWifi.Gateway}` : 'Gateway: Connected';
+    }
+
+    // Load Live Hardware & Interface Info
+    async function loadWifiInfo() {
+        try {
+            const res = await fetch('/api/wifi-diagnostics');
+            if (res.ok) {
+                detectedWifi = await res.json();
+                updateConnectionLabels();
+            }
+        } catch (e) {
+            connectionTypeVal.textContent = 'Connected';
+        }
+    }
+
+    // Load Real Public IP & Carrier Info
+    async function loadIpInfo() {
+        try {
+            const res = await fetch('/api/ipinfo');
+            if (res.ok) {
+                detectedIp = await res.json();
+                updateConnectionLabels();
+            }
+        } catch (e) {
+            networkCarrierVal.textContent = 'Connected';
+        }
+    }
+
+    loadWifiInfo();
+    loadIpInfo();
+
+    // Fast 5-6s Speed Test
+    async function runTest() {
+        startBtn.disabled = true;
+        startBtn.textContent = 'Testing...';
+        
+        heroSpeed.textContent = '0.0';
+        downloadValue.textContent = '--';
+        uploadValue.textContent = '--';
+        pingValue.textContent = '--';
+        jitterValue.textContent = '--';
+
+        engine.isRunning = true;
+
+        try {
+            // === STAGE 1: DOWNLOAD (3.0s) ===
+            stageLabel.textContent = 'Measuring Download Speed...';
+            const dlRes = await engine.testDownload((instantMbps) => {
+                heroSpeed.textContent = instantMbps.toFixed(1);
+                downloadValue.textContent = instantMbps.toFixed(1);
+            });
+            heroSpeed.textContent = dlRes.mbps.toFixed(1);
+            downloadValue.textContent = dlRes.mbps.toFixed(1);
+
+            // === STAGE 2: UPLOAD (2.0s) ===
+            stageLabel.textContent = 'Measuring Upload Speed...';
+            const ulRes = await engine.testUpload((instantMbps) => {
+                heroSpeed.textContent = instantMbps.toFixed(1);
+                uploadValue.textContent = instantMbps.toFixed(1);
+            });
+            heroSpeed.textContent = ulRes.mbps.toFixed(1);
+            uploadValue.textContent = ulRes.mbps.toFixed(1);
+
+            // === STAGE 3: PING & JITTER (~0.5s) ===
+            stageLabel.textContent = 'Measuring Latency (Ping)...';
+            const pingRes = await engine.testPing((instantPing) => {
+                pingValue.textContent = instantPing.toFixed(0);
+            });
+            pingValue.textContent = pingRes.avg.toFixed(1);
+            jitterValue.textContent = pingRes.jitter.toFixed(1);
+
+            // Dynamically update 5G vs 4G tag based on live measured speed & ping
+            updateConnectionLabels(dlRes.mbps, pingRes.avg);
+
+            // Restore Hero Readout to final Download Speed
+            heroSpeed.textContent = dlRes.mbps.toFixed(1);
+            stageLabel.textContent = 'Test Completed';
+        } catch (err) {
+            stageLabel.textContent = 'Test Interrupted';
+        } finally {
+            startBtn.disabled = false;
+            startBtn.textContent = 'Test Again';
+        }
+    }
+
+    startBtn.addEventListener('click', runTest);
+});
