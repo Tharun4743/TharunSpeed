@@ -95,16 +95,20 @@ class SpeedEngine {
         };
     }
 
-    // High-Accuracy Upload (2.0 seconds)
+    // High-Accuracy Upload (2.0 seconds strict timeout)
     async testUpload(onProgress) {
         this.abortController = new AbortController();
         const startTime = performance.now();
         const endTime = startTime + this.uploadDurationMs;
         let totalBytesUploaded = 0;
+        let isDone = false;
 
-        const payloadSize = 1024 * 1024; // 1 MB chunks
+        const activeXhrs = [];
+
+        // 256 KB chunks for continuous progress events without buffering delays
+        const payloadSize = 256 * 1024;
         const randomPayload = new Uint8Array(payloadSize);
-        crypto.getRandomValues(randomPayload.subarray(0, 32768));
+        crypto.getRandomValues(randomPayload.subarray(0, 8192));
 
         let lastCheckTime = startTime;
         let lastCheckBytes = 0;
@@ -118,7 +122,7 @@ class SpeedEngine {
             if (deltaSec >= 0.045 && totalBytesUploaded > 0) {
                 const instantMbps = (deltaBytes * 8) / deltaSec / 1000000;
                 const overallMbps = (totalBytesUploaded * 8) / elapsed / 1000000;
-                const currentMbps = (elapsed > 0.4) ? (overallMbps * 0.7 + instantMbps * 0.3) : instantMbps;
+                const currentMbps = (elapsed > 0.3) ? (overallMbps * 0.7 + instantMbps * 0.3) : instantMbps;
 
                 if (onProgress && currentMbps > 0) {
                     onProgress(currentMbps, overallMbps, totalBytesUploaded);
@@ -129,48 +133,73 @@ class SpeedEngine {
             }
         }, 45);
 
-        const uploadWorker = () => {
-            return new Promise((resolve) => {
-                const sendNext = () => {
-                    if (performance.now() >= endTime || !this.isRunning) {
-                        return resolve();
-                    }
+        const startWorker = () => {
+            const run = () => {
+                if (isDone || performance.now() >= endTime || !this.isRunning) return;
 
-                    const xhr = new XMLHttpRequest();
-                    let lastLoaded = 0;
+                const xhr = new XMLHttpRequest();
+                activeXhrs.push(xhr);
+                let lastLoaded = 0;
 
-                    xhr.upload.onprogress = (e) => {
-                        if (e.lengthComputable) {
-                            const diff = e.loaded - lastLoaded;
+                xhr.upload.onprogress = (e) => {
+                    if (isDone) return;
+                    if (e.lengthComputable) {
+                        const diff = e.loaded - lastLoaded;
+                        if (diff > 0) {
                             totalBytesUploaded += diff;
                             lastLoaded = e.loaded;
                         }
-                    };
+                    }
+                };
 
-                    xhr.onload = () => sendNext();
-                    xhr.onerror = () => setTimeout(sendNext, 40);
+                const cleanupAndNext = () => {
+                    const idx = activeXhrs.indexOf(xhr);
+                    if (idx !== -1) activeXhrs.splice(idx, 1);
+                    if (!isDone && performance.now() < endTime && this.isRunning) {
+                        run();
+                    }
+                };
 
-                    const uploadUrl = (this.targetNode === 'cloudflare')
-                        ? `https://speed.cloudflare.com/__up?r=${Math.random()}`
-                        : `/api/upload?r=${Math.random()}`;
+                xhr.onload = cleanupAndNext;
+                xhr.onerror = cleanupAndNext;
+                xhr.onabort = () => {
+                    const idx = activeXhrs.indexOf(xhr);
+                    if (idx !== -1) activeXhrs.splice(idx, 1);
+                };
 
+                const uploadUrl = (this.targetNode === 'cloudflare')
+                    ? `https://speed.cloudflare.com/__up?r=${Math.random()}`
+                    : `/api/upload?r=${Math.random()}`;
+
+                try {
                     xhr.open('POST', uploadUrl, true);
                     xhr.setRequestHeader('Content-Type', 'application/octet-stream');
                     xhr.send(randomPayload);
-                };
+                } catch (e) {
+                    cleanupAndNext();
+                }
+            };
 
-                sendNext();
-            });
+            run();
         };
 
-        const workers = [];
-        for (let i = 0; i < this.concurrency; i++) {
-            workers.push(uploadWorker());
+        // Launch 4 concurrent lightweight streaming workers
+        const concurrency = Math.min(this.concurrency, 4);
+        for (let i = 0; i < concurrency; i++) {
+            startWorker();
         }
 
-        await Promise.all(workers);
-        this.abortController.abort();
+        // GUARANTEED HARD TIMEOUT: Exactly uploadDurationMs (2.0s), never hangs or loops
+        await new Promise(resolve => setTimeout(resolve, this.uploadDurationMs));
+        
+        isDone = true;
         clearInterval(monitorInterval);
+
+        // Instantly abort all active in-flight uploads
+        activeXhrs.forEach(xhr => {
+            try { xhr.abort(); } catch (e) {}
+        });
+        activeXhrs.length = 0;
 
         const totalDuration = (performance.now() - startTime) / 1000;
         const finalMbps = (totalDuration > 0 && totalBytesUploaded > 0)
