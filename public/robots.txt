@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tharunspeed.netlify.app/sitemap.xml
+Sitemap: https://tkspeed.netlify.app/sitemap.xml
