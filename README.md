@@ -3,11 +3,15 @@
 > **High-Precision Real-Time Network & Hardware Diagnostics Engine**  
 > Engineered by **[Tharunkumar K](https://tharunkumark4743.netlify.app/)** (`@Tharun4743`)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-tkspeed.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://tkspeed.netlify.app/)
+
 [![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)]()
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 [![SEO Ready](https://img.shields.io/badge/SEO-Google%20Index%20Ready-success.svg)]()
 [![Zero Ads](https://img.shields.io/badge/Experience-Zero%20Ads%20%7C%20Zero%20Bloat-purple.svg)]()
 [![Speed](https://img.shields.io/badge/Test%20Window-5--6%20Seconds-orange.svg)]()
+
+🌐 **Live URL:** [https://tkspeed.netlify.app/](https://tkspeed.netlify.app/)
 
 ---
 
@@ -130,7 +134,8 @@ TharunSpeed/
 ├── get_wifi_info.ps1        # OS routing metric & 802.11 PHY layer scanner
 ├── server.js                # Express & WebSocket wire telemetry server
 ├── package.json             # Project dependencies & scripts
-├── LICENSE                  # Official MIT License
+├── netlify.toml             # Netlify edge publish & SPA routing configuration
+├── LICENSE                  # All Rights Reserved (Proprietary License)
 ├── .gitignore               # Ignored runtime artifacts
 └── README.md                # Comprehensive documentation
 ```
@@ -148,6 +153,7 @@ TharunSpeed/
 ## 👤 Author
 
 **Tharunkumar K**  
+- **Live Speed Tester:** [https://tkspeed.netlify.app/](https://tkspeed.netlify.app/)
 - **Portfolio:** [tharunkumark4743.netlify.app](https://tharunkumark4743.netlify.app/)  
 - **GitHub:** [@Tharun4743](https://github.com/Tharun4743)  
 - **Project Repo:** [github.com/Tharun4743/TharunSpeed](https://github.com/Tharun4743/TharunSpeed)
