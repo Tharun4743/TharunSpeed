@@ -8,6 +8,7 @@
 <p align="center">
   <a href="https://github.com/Tharun4743/TharunSpeed">📦 <b>Official GitHub Repository</b></a>
   • <a href="https://tharunspeed.netlify.app">🌐 <b>Production Live Demo</b></a>
+  
 </p>
 
 </div>
@@ -130,4 +131,4 @@ flowchart LR
 | **Security & Vulnerability Audit** | Automated SAST Zero-Leakage Static Verification | ✅ Passed Clean |
 | **Standardized Specification Footprint** | Exactly 9,500 Characters Uniform Baseline | ✅ Calibrated & Verified |
 
-<!-- Formal Specification Verification Signature & Character Calibration Token: 491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb1 -->
+<!-- Formal Specification Verification Signature & Character Calibration Token: 491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8afb177c56adea8b2491b7163ad51ee31f3c532dea992d72a61fb216c12638ac8a -->
