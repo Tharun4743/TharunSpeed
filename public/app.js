@@ -4,8 +4,8 @@
  */
 document.addEventListener('DOMContentLoaded', () => {
     const engine = new SpeedEngine({
-        downloadDurationMs: 3000,
-        uploadDurationMs: 2000,
+        downloadDurationMs: 2500, // Ultra-fast 2.5s Download
+        uploadDurationMs: 1800,   // Ultra-fast 1.8s Upload
         concurrency: 6,
         targetNode: 'cloudflare'
     });
