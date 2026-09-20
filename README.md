@@ -130,46 +130,10 @@ TharunSpeed/
 ├── get_wifi_info.ps1        # OS routing metric & 802.11 PHY layer scanner
 ├── server.js                # Express & WebSocket wire telemetry server
 ├── package.json             # Project dependencies & scripts
-├── .env.example             # Environment template
+├── LICENSE                  # Official MIT License
 ├── .gitignore               # Ignored runtime artifacts
 └── README.md                # Comprehensive documentation
 ```
-
----
-
-## 💻 Installation & Quick Start
-
-### Prerequisites
-- **Node.js**: v18.0.0 or higher
-- **Operating System**: Windows 10/11 (for native Wi-Fi/USB hardware inspection; Linux/macOS supported for standard wire speed testing)
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/Tharun4743/TharunSpeed.git
-cd TharunSpeed
-```
-
-### 2. Install dependencies
-```bash
-npm install
-```
-
-### 3. Run locally
-```bash
-npm start
-```
-Navigate to **`http://localhost:3000`** in your browser.
-
----
-
-## ⚙️ Environment Variables
-
-A `.env` file is **optional** — TharunSpeed runs out-of-the-box with zero configuration. If you wish to customize port bindings:
-
-| Variable | Type | Default | Description |
-| :--- | :---: | :---: | :--- |
-| `PORT` | `number` | `3000` | Port on which the HTTP & WebSocket server listens |
-| `NODE_ENV` | `string` | `production` | Runtime mode (`development` / `production`) |
 
 ---
 
@@ -192,4 +156,29 @@ A `.env` file is **optional** — TharunSpeed runs out-of-the-box with zero conf
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+```text
+MIT License
+
+Copyright (c) 2026 Tharunkumar K (Tharun4743)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
