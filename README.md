@@ -3,7 +3,7 @@
 > **High-Precision Real-Time Network & Hardware Diagnostics Engine**  
 > Engineered by **[Tharunkumar K](https://tharunkumark4743.netlify.app/)** (`@Tharun4743`)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)]()
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 [![SEO Ready](https://img.shields.io/badge/SEO-Google%20Index%20Ready-success.svg)]()
 [![Zero Ads](https://img.shields.io/badge/Experience-Zero%20Ads%20%7C%20Zero%20Bloat-purple.svg)]()
@@ -154,31 +154,15 @@ TharunSpeed/
 
 ---
 
-## 📄 License
+## 📄 License & Intellectual Property
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+**Copyright © 2026 Tharunkumar K (Tharun4743). All Rights Reserved.**
 
-```text
-MIT License
+> **PROPRIETARY NOTICE:**  
+> No part of this software, source code, architecture, algorithms, or visual design may be reproduced, distributed, modified, sublicensed, commercially exploited, or deployed without prior **explicit written permission** from **Tharunkumar K**.
 
-Copyright (c) 2026 Tharunkumar K (Tharun4743)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+For licensing inquiries and permissions:
+- **Email:** `tharunkumark42007@gmail.com`
+- **Portfolio:** [tharunkumark4743.netlify.app](https://tharunkumark4743.netlify.app/)
+- **GitHub:** [@Tharun4743](https://github.com/Tharun4743)
 
