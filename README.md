@@ -30,6 +30,20 @@ TharunSpeed is a lightweight, high-precision network speed and hardware benchmar
 ---
 
 ## 4. ⚙️ Technical Approach & System Architecture
+
+### 📐 High-Level Architectural Flowchart:
+```mermaid
+graph TD
+    Client["Browser Test Engine (Vanilla JS / Canvas 60fps)"] -->|Web Workers Stream| WorkerPool["Multi-Threaded HTTP/2 Download Workers"]
+    Client -->|Binary Chunk Upload| UploadWorker["Multi-Threaded Upload Workers"]
+    Client -->|WebSocket Ping Frames| LatencyEngine["Sub-Millisecond Jitter & RTT Prober"]
+    WorkerPool --> Aggregator["Real-Time Telemetry Synthesizer"]
+    UploadWorker --> Aggregator
+    LatencyEngine --> Aggregator
+    Aggregator --> Bufferbloat["Bufferbloat & Packet Loss Indexer"]
+    Bufferbloat --> CanvasUI["High-Refresh Dashboard Telemetry Gauge"]
+```
+
 | Engine Subsystem | Technology | Operational Function |
 | :--- | :--- | :--- |
 | **Client Interface** | Vanilla JavaScript, HTML5 Canvas, CSS3 | Ad-free high-frequency telemetry gauge visualizer |
